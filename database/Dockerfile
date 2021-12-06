@@ -5,4 +5,3 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -qq install python3
 COPY www /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY midware /midware
