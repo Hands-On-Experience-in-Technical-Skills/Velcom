@@ -2,6 +2,17 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+import pymysql
+from pymysql import cursors
+
+contaienr_name = "velcom-database"
+
+db_username = "velcom"
+db_userpass = "velcom_alksdjflkakjei"
+db_rootpass = "velcom_rootlkdjalienfklae"
+
+db_name = "velcom"
+table_msg_name = "velcom_msg"
 
 # 全局变量
 message_list = []
@@ -12,11 +23,40 @@ def process_input(request: request):
     one_message = request.form.get('msg')
 
     # message_list.append('here comes from process input.')
-    message_list.append(one_message)
+    # message_list.append(one_message)
+
+    db = pymysql.connect(host='localhost',
+                         user=db_username,
+                         password=db_userpass,
+                         database=db_name)
+    cursor = db.cursor()
+    if one_message:
+        cursor.execute(
+            f'INSERT INTO {table_msg_name} (msg) VALUES ("{one_message}")')
+    db.commit()
+    db.close()
+
     pass
 
 
 def process_output():
+    db = pymysql.connect(host='localhost',
+                         user=db_username,
+                         password=db_userpass,
+                         database=db_name)
+    cursor = db.cursor()
+    cursor.execute(f'SELECT * FROM {table_msg_name}')
+    results = cursor.fetchall()
+
+    message_list.clear()
+
+    for row in results:
+        message_list.append(row[1])
+
+    db.close()
+
+    pass
+
     output_dict = {}
     output_dict['messages'] = message_list
 

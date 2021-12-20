@@ -4,7 +4,7 @@ RUN mkdir midware
 
 COPY requirements.txt /midware
 COPY start.sh /midware
-COPY webapp.py /midware
+COPY my_midware.py /midware
 
 WORKDIR /midware
 

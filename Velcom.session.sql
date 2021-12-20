@@ -1,0 +1,1 @@
+SELECT * FROM velcom_msg;
