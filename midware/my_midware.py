@@ -5,6 +5,13 @@ from flask import request
 import pymysql
 from pymysql import cursors
 
+import os
+
+db_host = os.environ.get('DB_HOST')
+
+if not db_host:
+    db_host = '127.0.0.1'
+
 contaienr_name = "velcom-database"
 
 db_username = "velcom"
@@ -25,7 +32,7 @@ def process_input(request: request):
     # message_list.append('here comes from process input.')
     # message_list.append(one_message)
 
-    db = pymysql.connect(host='localhost',
+    db = pymysql.connect(host=db_host,
                          user=db_username,
                          password=db_userpass,
                          database=db_name)
@@ -40,7 +47,7 @@ def process_input(request: request):
 
 
 def process_output():
-    db = pymysql.connect(host='localhost',
+    db = pymysql.connect(host=db_host,
                          user=db_username,
                          password=db_userpass,
                          database=db_name)

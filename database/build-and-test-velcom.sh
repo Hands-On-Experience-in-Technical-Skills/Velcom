@@ -22,6 +22,7 @@ docker run \
     --env MARIADB_PASSWORD=${db_userpass} \
     --env MARIADB_ROOT_PASSWORD=${db_rootpass} \
     -p 3306:3306 \
+    --network velcome_net \
     mariadb:latest
 
 # docker exec -ti ${contaienr_name} /bin/bash
